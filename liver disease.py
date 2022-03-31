@@ -3,18 +3,12 @@
 
 # # Liver Disease
 
-# In[15]:
-
-
 import numpy as np 
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import random
 sns.set_style("darkgrid")
-
-
-# In[16]:
 
 
 data = pd.read_csv("Indian Liver Patient Dataset (ILPD).csv")
@@ -51,7 +45,7 @@ print("No = " + str(numOfNo))
 
 fig, axes = plt.subplots(9, 1, figsize=(15, 100), sharey=True)
 """sns.histplot(data, ax=axes[0], x="Age", kde=True, color='r')
-sns.histplot(data, ax=axes[1], x="Total Bilirubin", kde=True, color='b')
+sns.histplot(data, ax=axes[1], x="Total Bilirubin", kde=True, color='c')
 sns.histplot(data, ax=axes[2], x="Direct Bilirubin", kde=True)"""
 lab = list(data.columns[2:])
 print(lab)
@@ -161,23 +155,7 @@ def ConfusionMatrix (yTest, yPred):
                 matrix [1][1] += 1
     return matrix
 
-# Explanation for confusion matrix
-# Matrixnya adalah 
-# [[TP, FP],
-#  [FN, TN]]
-# Logikanya adalah, untuk sepanjang yTest (sbenernya sama saja kalo makai yPrediction, karena jumlah mereka sama
-# ini karena logically, yTest adalah hasil sesungguhnya (yg asli), sementara yPred adalah hasil ketika 
-# masukannya adalah xtest (yang artinya sama aja seperti ytest)  )
-# jika nilai yPrediction adalah 1 , dan di nilai i yang sama, yTest juga 1 (sama sama Benign)
-# PADA matrix index [0][0] akan ditambah 1, karena disitulah nilai True Positive (TP) yang berarti diagnosis Benign
-# pada prediction sesuai dengan diagnosis pada test
-# dan sebaliknya, jika nilai yPrediction adalah 0, dan pada i yang sama yTest juga 0 (sama sama Malignant)
-# maka pada index [1][1] akan ditambah 1 karena disitu nilai True Negative, artinya diagnosis malignant sesuai.
-# Perlu diperhatikan ini dilakukan untuk sepanjang yTest, yang berarti berlaku untuk semua nilai y, artinya, 
-# kalo kita jumlahkan jumlah nilai pada tiap index, hasilnya adalah jumlah y itu sendiri. #
 
-
-# In[25]:
 
 
 def f1 (confusionMatrix):
