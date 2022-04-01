@@ -157,7 +157,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import roc_curve, roc_auc_score, classification_report, accuracy_score, confusion_matrix 
 
-X = data[['Gender', 'Dataset', 'Age', 'Total Bilirubin', 'Direct Bilirubin',
+X = data[['Gender', 'Age', 'Total Bilirubin', 'Direct Bilirubin',
        'Alkhpos', 'SGPT', 'SGOT', 'Total Proteins', 'Albumin', 'A/G Ratio']]
 y = data.Dataset
 
