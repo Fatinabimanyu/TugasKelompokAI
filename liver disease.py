@@ -14,6 +14,7 @@ sns.set_style("darkgrid")
 data = pd.read_csv("Indian Liver Patient Dataset (ILPD).csv")
 
 data['Gender'].replace({'Male': 1, 'Female': 0},inplace = True)
+data['Dataset'].replace({1: 0, 2: 1},inplace = True)
 data.head(30)
 
 
