@@ -13,12 +13,7 @@ sns.set_style("darkgrid")
 
 data = pd.read_csv("Indian Liver Patient Dataset (ILPD).csv")
 
-
-for i in range (len (data)):
-    if data.loc[i, "Gender"] == 'Male':
-        data.loc[i, "Gender"] = 1
-    else:
-        data.loc[i, "Gender"] = 0
+data['Gender'].replace({'Male': 1, 'Female': 0},inplace = True)
 data.head(30)
 
 
@@ -154,6 +149,36 @@ print("The confusion matrix is : \n{}".format(cm))
 print("The accuracy is : {}" .format(f1(cm)))
 print("The actual diagnosis is \n{} \nThe Predicted diagnosis based on the ML model is \n{}\nWhere 0 is benign and 1 is Malignant".format(Y_test, Y_pred))
 
+#membandingkan dengan logistic regression yang menggunakan sklearn
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import roc_curve, roc_auc_score, classification_report, accuracy_score, confusion_matrix 
 
+X = data[['Gender', 'Dataset', 'Age', 'Total Bilirubin', 'Direct Bilirubin',
+       'Alkhpos', 'SGPT', 'SGOT', 'Total Proteins', 'Albumin', 'A/G Ratio']]
+y = data.Dataset
 
+#membagi data menjadi train dan test
+X_train, X_test, y_train, y_test = train_test_split(np.nan_to_num(X), y, test_size=0.2)
+print (X_train.shape)
+print (y_train.shape)
+print (X_test.shape)
+print (y_test.shape)
 
+logreg = LogisticRegression(solver='lbfgs', max_iter=1000)
+
+logreg.fit(X_train, y_train)
+
+# memprediksi keluaran
+log_predicted= logreg.predict(X_test)
+logreg_score = round(logreg.score(X_train, y_train) * 100, 2)
+logreg_score_test = round(logreg.score(X_test, y_test) * 100, 2)
+
+# print output
+print('Logistic Regression Training Score: n', logreg_score)
+print('Logistic Regression Test Score: n', logreg_score_test)
+print('Accuracy: n', accuracy_score(y_test,log_predicted))
+print('Confusion Matrix: n', confusion_matrix(y_test,log_predicted))
+print('Classification Report: n', classification_report(y_test,log_predicted))
